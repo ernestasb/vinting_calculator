@@ -32,6 +32,7 @@ class TestFreeShipping:
     def test_free_shipping(
         self, transaction_line, expected, pricing, free_shipping_instance
     ):
+        """Test if free shipping rule applied correctly"""
         transaction = Transaction()
         transaction.validate_transaction(transaction_line, pricing)
         free_shipping_instance.apply(
@@ -39,10 +40,10 @@ class TestFreeShipping:
             {
                 "provider": "LP",
                 "size": "S",
-                "every": 3,
-                "limit": 1,
-                "time": "MM",
-                "interval": 1,
+                "every_nth_free": 3,
+                "limit_per_period": 1,
+                "period_size": "MM",
+                "period_interval": 1,
             },
         )
         assert transaction.print_line() == expected
@@ -77,6 +78,7 @@ class TestFreeShippingIncorrectSize:
     def test_free_shipping_incorrect_size(
         self, transaction_line, expected, pricing, free_shipping_instance
     ):
+        """Test if free shipping rule not applied when size is incorrect"""
         transaction = Transaction()
         transaction.validate_transaction(transaction_line, pricing)
         free_shipping_instance.apply(
@@ -84,10 +86,10 @@ class TestFreeShippingIncorrectSize:
             {
                 "provider": "LP",
                 "size": "X",
-                "every": 3,
-                "limit": 1,
-                "time": "MM",
-                "interval": 1,
+                "every_nth_free": 3,
+                "limit_per_period": 1,
+                "period_size": "MM",
+                "period_interval": 1,
             },
         )
         assert transaction.print_line() == expected
@@ -122,6 +124,7 @@ class TestFreeShippingIncorrectSupplier:
     def test_free_shipping_incorrect_supplier(
         self, transaction_line, expected, pricing, free_shipping_instance
     ):
+        """Test if free shipping rule not applied when supplier is incorrect"""
         transaction = Transaction()
         transaction.validate_transaction(transaction_line, pricing)
         free_shipping_instance.apply(
@@ -129,10 +132,10 @@ class TestFreeShippingIncorrectSupplier:
             {
                 "provider": "XX",
                 "size": "S",
-                "every": 3,
-                "limit": 1,
-                "time": "MM",
-                "interval": 1,
+                "every_nth_free": 3,
+                "limit_per_period": 1,
+                "period_size": "MM",
+                "period_interval": 1,
             },
         )
         assert transaction.print_line() == expected
@@ -168,6 +171,7 @@ class TestFreeShippingLimitMultiProvider:
     def test_free_shipping_limit_multi_provider(
         self, transaction_line, expected, pricing, free_shipping_instance
     ):
+        """Test if free shipping rule is applied correctly for multiple providers with different limit"""
         transaction = Transaction()
         transaction.validate_transaction(transaction_line, pricing)
         free_shipping_instance.apply(
@@ -175,10 +179,10 @@ class TestFreeShippingLimitMultiProvider:
             {
                 "provider": "LP,MR",
                 "size": "S",
-                "every": 3,
-                "limit": 3,
-                "time": "MM",
-                "interval": 1,
+                "every_nth_free": 3,
+                "limit_per_period": 3,
+                "period_size": "MM",
+                "period_interval": 1,
             },
         )
         assert expected == transaction.print_line()
@@ -214,6 +218,7 @@ class TestFreeShippingLimitMultiSize:
     def test_free_shipping_limit_multi_size(
         self, transaction_line, expected, pricing, free_shipping_instance
     ):
+        """Test if free shipping rule is applied correctly for multiple providers and sizes"""
         transaction = Transaction()
         transaction.validate_transaction(transaction_line, pricing)
         free_shipping_instance.apply(
@@ -221,10 +226,10 @@ class TestFreeShippingLimitMultiSize:
             {
                 "provider": "LP,MR",
                 "size": "S,M",
-                "every": 3,
-                "limit": 3,
-                "time": "MM",
-                "interval": 1,
+                "every_nth_free": 3,
+                "limit_per_period": 3,
+                "period_size": "MM",
+                "period_interval": 1,
             },
         )
         assert expected == transaction.print_line()
@@ -260,6 +265,7 @@ class TestFreeShippingWildcardSize:
     def test_free_shipping_every_of_lp(
         self, transaction_line, expected, pricing, free_shipping_instance
     ):
+        """Test if free shipping rule is applied correctly for wildcard size"""
         transaction = Transaction()
         transaction.validate_transaction(transaction_line, pricing)
         free_shipping_instance.apply(
@@ -267,10 +273,10 @@ class TestFreeShippingWildcardSize:
             {
                 "provider": "LP",
                 "size": "*",
-                "every": 1,
-                "limit": 20,
-                "time": "MM",
-                "interval": 1,
+                "every_nth_free": 1,
+                "limit_per_period": 20,
+                "period_size": "MM",
+                "period_interval": 1,
             },
         )
         assert expected == transaction.print_line()
@@ -306,6 +312,7 @@ class TestFreeShippingWildcardSizeProvider:
     def test_free_shipping_every_of_lp(
         self, transaction_line, expected, pricing, free_shipping_instance
     ):
+        """Test if free shipping rule is applied correctly for wildcard size and provider"""
         transaction = Transaction()
         transaction.validate_transaction(transaction_line, pricing)
         free_shipping_instance.apply(
@@ -313,10 +320,10 @@ class TestFreeShippingWildcardSizeProvider:
             {
                 "provider": "*",
                 "size": "*",
-                "every": 1,
-                "limit": 20,
-                "time": "MM",
-                "interval": 1,
+                "every_nth_free": 1,
+                "limit_per_period": 20,
+                "period_size": "MM",
+                "period_interval": 1,
             },
         )
         assert expected == transaction.print_line()
@@ -352,6 +359,7 @@ class TestFreeShippingYearNotImplemented:
     def test_free_shipping_every_of_lp(
         self, transaction_line, expected, pricing, free_shipping_instance
     ):
+        """Test if free shipping rule is not applied for year time"""
         transaction = Transaction()
         transaction.validate_transaction(transaction_line, pricing)
         free_shipping_instance.apply(
@@ -359,10 +367,10 @@ class TestFreeShippingYearNotImplemented:
             {
                 "provider": "*",
                 "size": "*",
-                "every": 2,
-                "limit": 32,
-                "time": "YY",
-                "interval": 1,
+                "every_nth_free": 2,
+                "limit_per_period": 32,
+                "period_size": "YY",
+                "period_interval": 1,
             },
         )
         assert expected == transaction.print_line()
@@ -404,6 +412,7 @@ class TestFreeShippingEvery2Months:
     def test_free_shipping_every_of_lp(
         self, transaction_line, expected, pricing, free_shipping_instance
     ):
+        """Test if free shipping rule is applied correctly for every 2 months"""
         transaction = Transaction()
         transaction.validate_transaction(transaction_line, pricing)
         free_shipping_instance.apply(
@@ -411,10 +420,10 @@ class TestFreeShippingEvery2Months:
             {
                 "provider": "LP,MR",
                 "size": "S,M",
-                "every": 3,
-                "limit": 3,
-                "time": "MM",
-                "interval": 2,
+                "every_nth_free": 3,
+                "limit_per_period": 3,
+                "period_size": "MM",
+                "period_interval": 2,
             },
         )
         assert expected == transaction.print_line()

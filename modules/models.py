@@ -1,16 +1,18 @@
 """Module containing data models"""
 
-from datetime import date
+import datetime
 
 from modules.errors import TransactionValidationException
 
 
+# This class was created for better readability when processing transaction,
+# so no string parsing has to be done when creating new rules later on
 class Transaction:
     """Transaction class to store and manipulate transaction data"""
 
     def __init__(
         self,
-        date: date = None,
+        date: datetime.date = None,
         size: str = None,
         provider: str = None,
         price: float = 0,
@@ -29,6 +31,8 @@ class Transaction:
         self.price = price
         self.discount = 0
 
+    # this was creates to seamlesly send the line from the file and the object
+    # creates itsef based on the line validity and values
     def validate_transaction(self, line: str, pricing: dict):
         """Validate transaction line and assign values to the class instance.
         Throws TransactionValidationException if validation fails.
@@ -53,7 +57,7 @@ class Transaction:
             raise TransactionValidationException("Line does not contain 3 values", line)
 
         # Validate if date is in correct format which is YYYY-MM-DD
-        self.date = date.fromisoformat(parts[0])
+        self.date = datetime.date.fromisoformat(parts[0])
         self.size = parts[1]
         self.provider = parts[2]
         # Validate if size and provider combination can be found in 'pricing' list
@@ -85,9 +89,9 @@ class Transaction:
         """
         if discount >= 0 and discount >= self.discount:
             self.discount = discount
-        if self.discount > self.price and override == False:
+        if self.discount > self.price and not override:
             self.discount = self.price
-        if override == True:
+        if override:
             self.discount = discount
 
     def print_line(self, float_point: int = 2):
@@ -97,4 +101,8 @@ class Transaction:
         Returns:
             str: line to be printed (with discount if applicable)
         """
-        return f"{self.date} {self.size} {self.provider} {self.price-self.discount:.{float_point}f} {'-' if self.discount == 0 else f'{self.discount:.{float_point}f}'}"
+        return (
+            f"{self.date} {self.size} {self.provider} "
+            f"{self.price - self.discount:.{float_point}f} "
+            f"{'-' if self.discount == 0 else f'{self.discount:.{float_point}f}'}"
+        )

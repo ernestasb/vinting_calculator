@@ -32,15 +32,16 @@ class Testas:
     def test_discount_limit(
         self, transaction_line, discount, expected, discount_limit_instance, pricing
     ):
+        """Test if discount limit is applied correctly when limit is 10"""
         transaction = Transaction()
         transaction.validate_transaction(transaction_line, pricing)
         transaction.discount = discount
         config = {
             "provider": "*",
             "size": "*",
-            "limit": 10,
-            "time": "MM",
-            "interval": 1,
+            "limit_per_period": 10,
+            "period_size": "MM",
+            "period_interval": 1,
         }
         discount_limit_instance.apply(
             transaction,
@@ -78,15 +79,16 @@ class TestDiscountLimit5:
     def test_discount_limit(
         self, transaction_line, discount, expected, discount_limit_instance, pricing
     ):
+        """Test if discount limit is applied correctly when limit is 5"""
         transaction = Transaction()
         transaction.validate_transaction(transaction_line, pricing)
         transaction.discount = discount
         config = {
             "provider": "*",
             "size": "*",
-            "limit": 5,
-            "time": "MM",
-            "interval": 1,
+            "limit_per_period": 5,
+            "period_size": "MM",
+            "period_interval": 1,
         }
         discount_limit_instance.apply(
             transaction,
@@ -125,15 +127,16 @@ class TestDiscountLimitProvider:
     def test_discount_limit(
         self, transaction_line, discount, expected, discount_limit_instance, pricing
     ):
+        """Test if discount limit is applied correctly when provider is LP"""
         transaction = Transaction()
         transaction.validate_transaction(transaction_line, pricing)
         transaction.discount = discount
         config = {
             "provider": "LP",
             "size": "*",
-            "limit": 5,
-            "time": "MM",
-            "interval": 1,
+            "limit_per_period": 5,
+            "period_size": "MM",
+            "period_interval": 1,
         }
         discount_limit_instance.apply(
             transaction,
@@ -175,15 +178,16 @@ class TestDiscountLimitSize:
     def test_discount_limit(
         self, transaction_line, discount, expected, discount_limit_instance, pricing
     ):
+        """Test if discount limit is applied correctly when size is M"""
         transaction = Transaction()
         transaction.validate_transaction(transaction_line, pricing)
         transaction.discount = discount
         config = {
             "provider": "*",
             "size": "M",
-            "limit": 6,
-            "time": "MM",
-            "interval": 1,
+            "limit_per_period": 6,
+            "period_size": "MM",
+            "period_interval": 1,
         }
         discount_limit_instance.apply(
             transaction,
@@ -221,15 +225,16 @@ class TestDiscountLimitInvalidPeriod:
     def test_discount_limit(
         self, transaction_line, discount, expected, discount_limit_instance, pricing
     ):
+        """Test if discount limit is not applied when period is YY"""
         transaction = Transaction()
         transaction.validate_transaction(transaction_line, pricing)
         transaction.discount = discount
         config = {
             "provider": "*",
             "size": "*",
-            "limit": 10,
-            "time": "YY",
-            "interval": 1,
+            "limit_per_period": 10,
+            "period_size": "YY",
+            "period_interval": 1,
         }
         discount_limit_instance.apply(
             transaction,
@@ -238,7 +243,7 @@ class TestDiscountLimitInvalidPeriod:
         assert expected == transaction.print_line()
 
 
-class Test1:  # TestDiscountLimitInterval2:
+class TestDiscountLimitInterval2:
     @pytest.mark.parametrize(
         "transaction_line,discount,expected",
         [
@@ -276,15 +281,16 @@ class Test1:  # TestDiscountLimitInterval2:
     def test_discount_limit(
         self, transaction_line, discount, expected, discount_limit_instance, pricing
     ):
+        """Test if discount limit is applied correctly when interval is 2"""
         transaction = Transaction()
         transaction.validate_transaction(transaction_line, pricing)
         transaction.discount = discount
         config = {
             "provider": "*",
             "size": "*",
-            "limit": 10,
-            "time": "MM",
-            "interval": 2,
+            "limit_per_period": 10,
+            "period_size": "MM",
+            "period_interval": 2,
         }
         discount_limit_instance.apply(
             transaction,

@@ -31,14 +31,26 @@
             "price": 4
         }
     ],
-    "lowest":["S"],
-    "free":{
-        "provider": ["LP"], 
-        "size": ["L"],
-        "every":3,
-        "limit":1,
-        "time":"MM",
-        "interval":1
+    "lowest_rule": [
+        "S"
+    ],
+    "free_shipping_rule": {
+        "provider": [
+            "LP"
+        ],
+        "size": [
+            "L"
+        ],
+        "every_nth_free": 3,
+        "limit_per_period": 1,
+        "period_size": "MM",
+        "period_interval": 1
     },
-    
+    "discount_limit_rule": {
+        "provider": "*",
+        "size": "*",
+        "limit_per_period": 10,
+        "period_size": "MM",
+        "period_interval": 1
+    }
 }

@@ -12,6 +12,7 @@ from modules.transaction_calc.rules.lowest_shipping import LowestShipping
     ],
 )
 def test_lowest_shipping_s(transaction_line, pricing, expected):
+    """Test if lowest price for size S is applied"""
     transaction = Transaction()
     transaction.validate_transaction(transaction_line, pricing)
     rule = LowestShipping().apply(transaction, pricing, "S")
@@ -27,6 +28,7 @@ def test_lowest_shipping_s(transaction_line, pricing, expected):
     ],
 )
 def test_lowest_shipping_m(transaction_line, pricing, expected):
+    """Test if lowest price for size M is applied"""
     transaction = Transaction()
     transaction.validate_transaction(transaction_line, pricing)
     rule = LowestShipping().apply(transaction, pricing, "M")
@@ -42,6 +44,7 @@ def test_lowest_shipping_m(transaction_line, pricing, expected):
     ],
 )
 def test_lowest_shipping_l(transaction_line, pricing, expected):
+    """Test if lowest price for size L is applied"""
     transaction = Transaction()
     transaction.validate_transaction(transaction_line, pricing)
     rule = LowestShipping().apply(transaction, pricing, "L")
@@ -57,6 +60,7 @@ def test_lowest_shipping_l(transaction_line, pricing, expected):
     ],
 )
 def test_lowest_shipping_s1(transaction_line, pricing1, expected):
+    """Test if lowest price for size S is applied with different pricing"""
     transaction = Transaction()
     transaction.validate_transaction(transaction_line, pricing1)
     rule = LowestShipping().apply(transaction, pricing1, "S")
@@ -72,6 +76,7 @@ def test_lowest_shipping_s1(transaction_line, pricing1, expected):
     ],
 )
 def test_lowest_shipping_m1(transaction_line, pricing1, expected):
+    """Test if lowest price for size M is applied with different pricing"""
     transaction = Transaction()
     transaction.validate_transaction(transaction_line, pricing1)
     rule = LowestShipping().apply(transaction, pricing1, "M")
@@ -87,6 +92,7 @@ def test_lowest_shipping_m1(transaction_line, pricing1, expected):
     ],
 )
 def test_lowest_shipping_l1(transaction_line, pricing1, expected):
+    """Test if lowest price for size L is applied with different pricing"""
     transaction = Transaction()
     transaction.validate_transaction(transaction_line, pricing1)
     rule = LowestShipping().apply(transaction, pricing1, "L")
@@ -102,6 +108,7 @@ def test_lowest_shipping_l1(transaction_line, pricing1, expected):
     ],
 )
 def test_lowest_shipping_multi(transaction_line, pricing1, expected):
+    """Test if lowest price for multiple sizes"""
     transaction = Transaction()
     transaction.validate_transaction(transaction_line, pricing1)
     rule = LowestShipping().apply(transaction, pricing1, ["L", "S"])

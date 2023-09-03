@@ -1,6 +1,7 @@
 """Module containing custom exceptions."""
 
 
+# this file is created to define custom exceptions that can be used in the application
 class TransactionValidationException(Exception):
     """Exception raised for errors when validationg line."""
 
