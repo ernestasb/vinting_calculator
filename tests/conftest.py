@@ -1,4 +1,5 @@
 import pytest
+from modules.transaction_calc.rules.discount_limit import DiscountLimit
 
 from modules.transaction_calc.rules.free_shipping import FreeShipping
 
@@ -30,3 +31,8 @@ def pricing1():
 @pytest.fixture(scope="class")
 def free_shipping_instance():
     return FreeShipping()
+
+
+@pytest.fixture(scope="class")
+def discount_limit_instance():
+    return DiscountLimit()

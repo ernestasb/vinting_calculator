@@ -15,13 +15,17 @@ class DiscountLimit:
             self.discount_limit = 0
             if rule_config["time"] == "MM":
                 self.discount_limit_reset_at = transaction.date.replace(
-                    day=1, month=transaction.date.month + 1
+                    day=1, month=transaction.date.month + rule_config["interval"]
                 )
         # Check if conditions are met
+
         if (transaction.size in rule_config["size"] or rule_config["size"] == "*") and (
             transaction.provider in rule_config["provider"]
             or rule_config["provider"] == "*"
         ):
+            print(transaction.size, rule_config["size"])
+            print(transaction.provider, rule_config["provider"])
+            print(self.discount_limit, self.discount_limit_reset_at)
             if self.discount_limit < rule_config["limit"]:
                 discount = (
                     transaction.discount

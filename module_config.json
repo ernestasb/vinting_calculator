@@ -40,11 +40,5 @@
         "time":"MM",
         "interval":1
     },
-    "discount":{
-        "provider": "*",
-        "size": "*",
-        "limit":10,
-        "time":"MM",
-        "interval":1
-    }
+    
 }
