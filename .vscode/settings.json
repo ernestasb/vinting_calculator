@@ -1,0 +1,8 @@
+{
+    "editor.rulers": [
+        79
+    ],
+    "editor.wordWrap": "wordWrapColumn",
+    "editor.wrappingIndent": "same",
+    "editor.wordWrapColumn": 79,
+}

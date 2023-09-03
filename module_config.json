@@ -1,0 +1,53 @@
+{
+    "pricing": [
+        {
+            "provider": "LP",
+            "size": "S",
+            "price": 1.50
+        },
+        {
+            "provider": "LP",
+            "size": "M",
+            "price": 4.90
+        },
+        {
+            "provider": "LP",
+            "size": "L",
+            "price": 6.90
+        },
+        {
+            "provider": "MR",
+            "size": "S",
+            "price": 2
+        },
+        {
+            "provider": "MR",
+            "size": "M",
+            "price": 3
+        },
+        {
+            "provider": "MR",
+            "size": "L",
+            "price": 4
+        }
+    ],
+    "lowest": [
+        "S"
+    
+    ],
+    "free":{
+        "provider": "LP",
+        "size": "L",
+        "every":3,
+        "limit":1,
+        "time":"MM",
+        "interval":1
+    },
+    "discount":{
+        "provider": "*",
+        "size": "*",
+        "limit":10,
+        "time":"MM",
+        "interval":1
+    }
+}
