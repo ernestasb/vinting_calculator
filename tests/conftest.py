@@ -1,5 +1,7 @@
 import pytest
 
+from modules.transaction_calc.rules.free_shipping import FreeShipping
+
 
 @pytest.fixture(scope="function")
 def pricing():
@@ -11,3 +13,20 @@ def pricing():
         {"provider": "MR", "size": "M", "price": 3},
         {"provider": "MR", "size": "L", "price": 4},
     ]
+
+
+@pytest.fixture(scope="function")
+def pricing1():
+    return [
+        {"provider": "LP", "size": "S", "price": 1},
+        {"provider": "LP", "size": "M", "price": 2},
+        {"provider": "LP", "size": "L", "price": 3},
+        {"provider": "MR", "size": "S", "price": 3},
+        {"provider": "MR", "size": "M", "price": 1},
+        {"provider": "MR", "size": "L", "price": 1},
+    ]
+
+
+@pytest.fixture(scope="class")
+def free_shipping_instance():
+    return FreeShipping()

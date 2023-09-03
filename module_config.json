@@ -31,13 +31,10 @@
             "price": 4
         }
     ],
-    "lowest": [
-        "S"
-    
-    ],
+    "lowest":["S"],
     "free":{
-        "provider": "LP",
-        "size": "L",
+        "provider": ["LP"], 
+        "size": ["L"],
         "every":3,
         "limit":1,
         "time":"MM",
